@@ -1,0 +1,44 @@
+img {
+    width:100%;
+    height:auto;
+}
+body {
+    padding:0;
+    margin:0;
+    height:400vh;
+}
+.parallax {
+    position:relative;
+    /*height:56vh;*/
+    /*background-position:center;*/
+    /*background-size:cover;*/
+    object-fit:cover;
+    transition:all 1s ease;
+}
+
+.cb-banner-wrapper {
+    height:897px;
+}
+
+.banner-top {
+    height:100%;
+    overflow:hidden;
+    position:relative;
+}
+
+.cb-sky {height:100%; object-fit:cover; object-position:center bottom}
+.cb-mountain {}
+
+.cb-forest {
+    aspect-ratio:1440/475;
+}
+.cb-forest_black {
+    bottom:-12%;
+}
+.cb-cute {
+    width:507px; aspect-ratio:507/479;
+}
+.cb-logo {
+    top:160px;
+    width:557px; aspect-ratio:557/245;
+}

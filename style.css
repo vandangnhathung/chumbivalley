@@ -6,6 +6,8 @@ body {
     padding:0;
     margin:0;
     height:400vh;
+    font-family:"fungis", sans-serif;
+    overflow:initial !important
 }
 .parallax {
     position:relative;
@@ -42,3 +44,33 @@ body {
     top:160px;
     width:557px; aspect-ratio:557/245;
 }
+
+
+/*******************
+       Main
+*******************/
+
+.cb-main {
+    margin-top:100px;
+    max-width:1280px;
+    margin-left:auto; margin-right:auto;
+    gap:60px;
+}
+
+.cb-images {width:46%; }
+.cb-content {width:54%;}
+
+.cb-images img {display:block;}
+.cb-img-wrapper {
+    aspect-ratio:592/360;
+    position:sticky;
+    top:60px;
+}
+
+.cb-img {position:absolute; top:0;}
+
+.cb-img img {opacity:0; }
+
+.cb-img .active {opacity:1;}
+
+.cb-content-item {display:flex; gap:80px; height:600px;}

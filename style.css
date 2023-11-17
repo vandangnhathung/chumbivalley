@@ -73,4 +73,9 @@ body {
 
 .cb-img .active {opacity:1;}
 
+.cb-content-item:not(.active) {background:gray}
+.cb-content-item.active {background:red;}
+
 .cb-content-item {display:flex; gap:80px; height:600px;}
+.cb-content-item:nth-child(2) {height:200px;}
+.cb-content-item:nth-child(3) {height:200px;}

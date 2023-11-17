@@ -41,54 +41,51 @@ document.querySelectorAll(".cb-forest_black").forEach((element) => {
 
 // Main section
 
-// const convertImageScroll = (el, itemHeight, index) => {
-//     const cbImages = document.querySelector(".cb-images");
-//
-//
-//     const cbImg = document.querySelector(".cb-img");
-//     const cbImgStyle = window.getComputedStyle(cbImg);
-//     const cbImgTopString = cbImgStyle.getPropertyValue('top').split("px")[0];
-//     const cbImgTopNumber = Number(cbImgTopString);
-//
-//     const singleImageHeight = document.querySelector(".cb-img-1").clientHeight;
-//
-//     let isGreaterItemHeight = false;
-//     let isLessItemHeight = true;
-//
-//     const imageItem = document.querySelectorAll(".cb-img-item");
-//
-//     window.addEventListener("scroll", () => {
-//             // console.log(index)
-//
-//             if(isGreaterItemHeight || !isLessItemHeight){
-//                 return;
-//             }
-//
-//             let rectImages = cbImages.getBoundingClientRect();
-//
-//             if(rectImages.top < 0){
-//                 let convertImagePoint = cbImgTopNumber + (rectImages.top * -1) + singleImageHeight;
-//                 console.log(convertImagePoint)
-//                 if(convertImagePoint >= itemHeight && isGreaterItemHeight === false){
-//                     console.log("isGreaterItemHeight: ", isGreaterItemHeight, index + 1)
-//                     imageItem.forEach(el => {
-//                         el.classList.remove("active");
-//                     })
-//                     imageItem[index + 1].classList.add("active");
-//                     isGreaterItemHeight = true;
-//                 }
-//             }
-//         }
-//     )
-// }
-//
-// let totalContentHeight = 0;
-// document.querySelectorAll(".cb-content-item").forEach((el, i) => {
-//     totalContentHeight += el.clientHeight;
-//     convertImageScroll(el, totalContentHeight, i);
-// })
+const contentItems = document.querySelectorAll(".cb-content-item");
 
-window.addEventListener("scroll", () => {
-    console.log(window.scrollY);
-    console.log(document.querySelector("body").offsetHeight)
+const scrollIntoActiveContentArea = (el, i) => {
+    const viewportHeight = window.innerHeight;
+    const convertImagePoint = viewportHeight * 60 / 100;
+
+    let isInContentItemArea = false;
+    const imgItem = document.querySelectorAll(".cb-img-item");
+    window.addEventListener("scroll", () => {
+
+
+        let windowTopDocument = window.scrollY;
+        let contentItemTopDocument = el.getBoundingClientRect().top + document.documentElement.scrollTop;
+        const contentItemTopViewPort = contentItemTopDocument - windowTopDocument;
+
+
+        console.log("convertImagePoint: ", convertImagePoint, "contentItemTopViewPort: ", contentItemTopViewPort, el)
+
+        if(contentItemTopViewPort <= convertImagePoint && contentItemTopViewPort >= 0){
+
+            imgItem.forEach(el => {
+                el.classList.remove("active");
+            })
+
+            contentItems.forEach(el => {
+                el.classList.remove("active");
+            })
+
+            imgItem[i].classList.add("active");
+            contentItems[i].classList.add("active");
+            console.log(i, true);
+
+
+            isInContentItemArea = true;
+        }else if(contentItemTopViewPort > convertImagePoint || contentItemTopViewPort < 0){
+            console.log(false);
+
+            isInContentItemArea = false;
+
+        }
+        // console.log(contentItemTopViewPort, el);
+    })
+}
+
+document.querySelectorAll(".cb-content-item").forEach((el, i) => {
+    scrollIntoActiveContentArea(el, i)
 })
+

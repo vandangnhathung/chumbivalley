@@ -1,94 +1,57 @@
 // Banner section
-const parallax = (target, speed = 1, cb = () => {
-}) => {
-
-    // update when scrolling
-    window.addEventListener("scroll", () => {
-        cb(window.scrollY * speed);
-    });
-};
-
-// init
-document.querySelectorAll(".cb-logo").forEach((element) => {
-    parallax(element, 0.2, (parallaxValue) => {
-        element.style.transform = `translate(-50%,${parallaxValue}%)`;
-    });
-});
-
-document.querySelectorAll(".cb-cute").forEach((element) => {
-    parallax(element, 0.15, (parallaxValue) => {
-        element.style.transform = `translateY(${parallaxValue}%)`;
-    });
-});
-
-document.querySelectorAll(".cb-forest").forEach((element) => {
-    parallax(element, 0.04, (parallaxValue) => {
-        element.style.transform = `translateY(${parallaxValue}%)`;
-    });
-});
-
-document.querySelectorAll(".cb-mountain").forEach((element) => {
-    parallax(element, 0.03, (parallaxValue) => {
-        element.style.transform = `translateY(${parallaxValue}%)`;
-    });
-});
-
-document.querySelectorAll(".cb-forest_black").forEach((element) => {
-    parallax(element, 0.02, (parallaxValue) => {
-        element.style.transform = `translateY(${-parallaxValue}%)`;
-    });
-});
-
-// Main section
-
-// const convertImageScroll = (el, itemHeight, index) => {
-//     const cbImages = document.querySelector(".cb-images");
-//
-//
-//     const cbImg = document.querySelector(".cb-img");
-//     const cbImgStyle = window.getComputedStyle(cbImg);
-//     const cbImgTopString = cbImgStyle.getPropertyValue('top').split("px")[0];
-//     const cbImgTopNumber = Number(cbImgTopString);
-//
-//     const singleImageHeight = document.querySelector(".cb-img-1").clientHeight;
-//
-//     let isGreaterItemHeight = false;
-//     let isLessItemHeight = true;
-//
-//     const imageItem = document.querySelectorAll(".cb-img-item");
-//
-//     window.addEventListener("scroll", () => {
-//             // console.log(index)
-//
-//             if(isGreaterItemHeight || !isLessItemHeight){
-//                 return;
-//             }
-//
-//             let rectImages = cbImages.getBoundingClientRect();
-//
-//             if(rectImages.top < 0){
-//                 let convertImagePoint = cbImgTopNumber + (rectImages.top * -1) + singleImageHeight;
-//                 console.log(convertImagePoint)
-//                 if(convertImagePoint >= itemHeight && isGreaterItemHeight === false){
-//                     console.log("isGreaterItemHeight: ", isGreaterItemHeight, index + 1)
-//                     imageItem.forEach(el => {
-//                         el.classList.remove("active");
-//                     })
-//                     imageItem[index + 1].classList.add("active");
-//                     isGreaterItemHeight = true;
-//                 }
-//             }
-//         }
-//     )
+// const fn = (trigger, speed) => {
+//     ScrollSnooper.create({
+//         trigger: trigger,
+//         onScroll: data => {
+//             window.addEventListener("scroll", () => {
+//                 data.trigger.style.transform = speed;
+//             })
+//         },
+//     });
 // }
-//
-// let totalContentHeight = 0;
-// document.querySelectorAll(".cb-content-item").forEach((el, i) => {
-//     totalContentHeight += el.clientHeight;
-//     convertImageScroll(el, totalContentHeight, i);
-// })
 
-window.addEventListener("scroll", () => {
-    console.log(window.scrollY);
-    console.log(document.querySelector("body").offsetHeight)
-})
+ScrollSnooper.create({
+    trigger: document.querySelector(".cb-logo"),
+    markers: true,
+    start: `top top`,
+    onScroll: data => {
+        //data.trigger.style.transform = `translate(-50%, ${window.scrollY * 0.5}%)`;
+        data.trigger.style.opacity = `${1 - data.progress}`;
+
+        console.log("data: ", data)
+        // window.addEventListener("scroll", () => {
+        //     console.log(1)
+        // })
+    },
+});
+ScrollSnooper.create({
+    trigger: document.querySelector(".cb-cute"),
+    onScroll: data => {
+        data.trigger.style.transform = `translateY(${window.scrollY * 0.15}%)`;
+    },
+});
+ScrollSnooper.create({
+    trigger: document.querySelector(".cb-forest"),
+    onScroll: data => {
+        console.log(data)
+        data.trigger.style.transform = `translateY(${window.scrollY * 0.04}%)`;
+    },
+});
+ScrollSnooper.create({
+    trigger: document.querySelector(".cb-mountain"),
+    onScroll: data => {
+        data.trigger.style.transform = `translateY(${window.scrollY * 0.03}%)`;
+    },
+});
+ScrollSnooper.create({
+    trigger: document.querySelector(".cb-forest_black"),
+    onScroll: data => {
+        data.trigger.style.transform = `translateY(${-window.scrollY * 0.04}%)`;
+    },
+});
+// fn(document.querySelector(".cb-logo"), `translate(-50%, ${window.scrollY * 0.2}%)`)
+// fn(document.querySelector(".cb-cute"), `translateY(${window.scrollY * 0.15}%)`)
+// fn(document.querySelector(".cb-forest"), `translateY(${window.scrollY * 0.04}%)`)
+// fn(document.querySelector(".cb-mountain"), `translateY(${window.scrollY * 0.03}%)`)
+// fn(document.querySelector(".cb-forest_black"), `translateY(${-window.scrollY * 0.04}%)`)
+
